@@ -14,10 +14,12 @@ class WhackATrump < Gosu::Window
 		@velocity_x = 2 # speed at which image moves to the right
 		@velocity_y = 2 # speed at which image moves south
 		@visible = 0
-		@hammer_image = Gosu::Image.new('hammer.png') # Hammer defined 
+		@hammer_image = Gosu::Image.new('hammer_cartoon1.png') # Hammer defined 
 		@hit = 0 # setting hits to zero
 		@font = Gosu::Font.new(30) #score text
+		@font_title = Gosu::Font.new(50) #
 		@score = 0
+		@title = 'WHACK A TRUMP'
 	end
 # 
 	def update
@@ -27,6 +29,7 @@ class WhackATrump < Gosu::Window
 		@velocity_y *= -1 if @y + @height / 2 > 600 || @y - @height / 2 < 0 # shifting 0 cordinate to the center of the y axis of the image
 		@visible -= 1 # lower number visible by 1.
 		@visible = 90 if @visible < - 10 && rand <0.01 # set visibility to 30 if visible is more than - 10 
+		@time_left = (100 - (Gosu.milliseconds / 1000))
 	end
 
 	def button_down(id)
@@ -34,6 +37,7 @@ class WhackATrump < Gosu::Window
 			if Gosu.distance(mouse_x, mouse_y, @x, @y) < 150 && @visible >= 0 #if distance of their click is close enough to the image
 				@hit = 1
 				@score += 5 #award scores if hit
+				@visible = 0
 			else
 				@hit = -1
 				@score -= 5 #denote scores if miss
@@ -43,7 +47,7 @@ class WhackATrump < Gosu::Window
 
 	def draw
 		if @visible > 0 #if visible is not zero, display image
-			@image.draw(@x - @width / 2, @y - @height / 2, 1) # draw image 
+			@image.draw(@x - @width / 2, @y - @height / 2, 1)
 		end
 		@hammer_image.draw(mouse_x - 40, mouse_y - 10, 1) # drawing image whereever the mouse is located
 		if @hit == 0
@@ -55,9 +59,10 @@ class WhackATrump < Gosu::Window
 		end
 		draw_quad(0, 0, c, 900, 0, c, 900, 600, c, 0, 600, c) #setting background
 		@hit = 0
-		@font.draw(@score.to_s, 700, 20, 2) #draw score that tells user how good they are - keeps scores of hits
+		@font.draw(@score.to_s, 800, 20, 2) #draw score that tells user how good they are - keeps scores of hits
+		@font.draw(@time_left.to_s, 20, 20, 2) # draw time left
+		@font_title.draw(@title, 250,20, 2)
 	end
-
 end
 
 window = WhackATrump.new
