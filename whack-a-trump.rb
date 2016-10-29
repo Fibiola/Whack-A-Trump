@@ -16,6 +16,8 @@ class WhackATrump < Gosu::Window
 		@visible = 0
 		@hammer_image = Gosu::Image.new('hammer.png') # Hammer defined 
 		@hit = 0 # setting hits to zero
+		@font = Gosu::Font.new(30) #score text
+		@score = 0
 	end
 # 
 	def update
@@ -24,15 +26,17 @@ class WhackATrump < Gosu::Window
 		@velocity_x *= -1 if @x + @width / 2 > 900 || @x - @width / 2 < 0 # shifting 0 cordinate to the center of the x axis the image
 		@velocity_y *= -1 if @y + @height / 2 > 600 || @y - @height / 2 < 0 # shifting 0 cordinate to the center of the y axis of the image
 		@visible -= 1 # lower number visible by 1.
-		@visible = 40 if @visible < - 10 && rand <0.01 # set visibility to 30 if visible is more than - 10 
+		@visible = 90 if @visible < - 10 && rand <0.01 # set visibility to 30 if visible is more than - 10 
 	end
 
 	def button_down(id)
-		if (id == Gosu::MsLeft)
-			if Gosu.distance(mouse_x, mouse_y, @x, @y) < 50 && @visible >= 0
+		if (id == Gosu::MsLeft)  # if user clicked the left button
+			if Gosu.distance(mouse_x, mouse_y, @x, @y) < 150 && @visible >= 0 #if distance of their click is close enough to the image
 				@hit = 1
+				@score += 5 #award scores if hit
 			else
 				@hit = -1
+				@score -= 5 #denote scores if miss
 			end
 		end
 	end
@@ -49,8 +53,9 @@ class WhackATrump < Gosu::Window
 		elsif @hit == -1
 			c = Gosu::Color::RED
 		end
-		draw_quad(0, 0, c, 800, 0, c, 800, 600, c, 0, 600, c)
+		draw_quad(0, 0, c, 900, 0, c, 900, 600, c, 0, 600, c) #setting background
 		@hit = 0
+		@font.draw(@score.to_s, 700, 20, 2) #draw score that tells user how good they are - keeps scores of hits
 	end
 
 end
