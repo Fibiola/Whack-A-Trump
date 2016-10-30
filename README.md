@@ -1,6 +1,6 @@
 #Whack A Trump
 
-Learning Game Development using [Gosu](https://www.libgosu.org/) 2D game development library for Ruby and C++ 
+Learning Game Development using [Gosu](https://www.libgosu.org/) - 2D game development library for Ruby and C++. 
 
 ##Screens
 
