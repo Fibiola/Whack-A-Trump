@@ -1,6 +1,6 @@
 #Whack A Trump
 Ruby Game using Gosu library
 
-![Whack-a-trump game screenshot](Fibiola.github.com/Whack-A-Trump/screenshot1.png)
+![Whack-a-trump game screenshot](/screenshot1.png?raw=true)
 
-![Whack-a-trump game screenshot](Fibiola.github.com/Whack-A-Trump/screenshot2.png)
+![Whack-a-trump game screenshot](screenshot2.png?raw=true)
